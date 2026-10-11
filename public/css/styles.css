@@ -1,0 +1,775 @@
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --border: #dfe2e7;
+  --text: #1a1d21;
+  --muted: #6b7280;
+  --accent: #0696d7; /* Autodesk blue */
+  --accent-soft: #e6f4fb;
+  --header-h: 60px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Header ---------- */
+
+.app-header {
+  height: var(--header-h);
+  flex: 0 0 var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin: -4px -6px;
+}
+
+.brand-lockup:hover {
+  background: var(--accent-soft);
+}
+
+.brand-lockup:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.brand-logo {
+  display: block;
+  flex-shrink: 0;
+}
+
+.brand-logo-aec {
+  width: 32px;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-plant3d .brand-lockup-name {
+  color: var(--accent);
+}
+
+.brand-lockup-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-lockup-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.brand-lockup-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.brand-sep {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.brand-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .brand-lockup-text {
+    display: none;
+  }
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-box img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--border);
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.user-meta .name {
+  font-weight: 600;
+}
+
+.user-meta .email {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- Layout: left panel = 1/3 of the page ---------- */
+
+.app-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 33.333% 1fr;
+}
+
+.panel-left {
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+}
+
+.panel-right {
+  min-height: 0;
+  overflow: auto;
+  padding: 20px;
+}
+
+/* ---------- Tree ---------- */
+
+.tree {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 6px 0;
+}
+
+.node {
+  user-select: none;
+}
+
+.node-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.node-row:hover {
+  background: #f0f1f3;
+}
+
+.node-row.selected {
+  background: var(--accent-soft);
+  color: #05506f;
+  font-weight: 600;
+}
+
+.caret {
+  width: 12px;
+  flex: 0 0 12px;
+  color: var(--muted);
+  font-size: 10px;
+  transition: transform 0.12s ease;
+}
+
+.caret.open {
+  transform: rotate(90deg);
+}
+
+.caret.leaf {
+  visibility: hidden;
+}
+
+.node-icon {
+  flex: 0 0 auto;
+}
+
+.node-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.node-children {
+  margin-left: 14px;
+  border-left: 1px solid var(--border);
+}
+
+.node-children.hidden {
+  display: none;
+}
+
+/* ---------- Details ---------- */
+
+.details h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.details .crumb {
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.details dl {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 8px 16px;
+  margin: 0;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.details dt {
+  color: var(--muted);
+}
+
+.details dd {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+/* ---------- Bits ---------- */
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- Overview chart ---------- */
+
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  margin: 12px 0 20px;
+  overflow: hidden;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-right: 1px solid var(--border);
+}
+
+.kpi:last-child {
+  border-right: 0;
+}
+
+.kpi-value {
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.crumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0 0 4px;
+}
+
+.crumb {
+  font: inherit;
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.crumb:hover {
+  background: var(--accent-soft);
+}
+
+.crumb.current {
+  color: var(--text);
+  font-weight: 600;
+  cursor: default;
+}
+
+.crumb-sep,
+.crumb-meta {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.crumb-meta {
+  margin: 0 0 12px;
+}
+
+.chart {
+  width: 100%;
+}
+
+/* Inline row button, e.g. the sync icon on a class branch. */
+.row-action {
+  position: relative;
+  flex: 0 0 auto;
+  margin-left: 6px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.row-action:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.row-action:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* While syncing, swap the glyph for a ring spinner.
+   Rotating the ⟳ character does not read as a spinner: a glyph's ink is not
+   centred in its box, so it wobbles around an off-centre origin instead of
+   turning on the spot. A drawn ring has no such problem. */
+.row-action-icon {
+  display: inline-block;
+  line-height: 1;
+}
+
+.row-action.spinning .row-action-icon {
+  visibility: hidden;
+}
+
+.row-action.spinning::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* A row with an action but no hint still needs the button pushed right. */
+.node-label + .row-action {
+  margin-left: auto;
+}
+
+/* Secondary detail on a tree row, e.g. a folder's subfolder count. */
+.hint {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding-left: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+/* Progress line under a loading node — never widen the panel with it. */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.status span:last-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pad {
+  padding: 10px 14px;
+}
+
+.error {
+  color: #b3261e;
+}
+
+.ghost-button,
+.primary-button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 5px 12px;
+}
+
+.ghost-button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.ghost-button:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.primary-button {
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.primary-button:hover {
+  filter: brightness(0.94);
+}
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: -2px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Quality card ---------- */
+
+.quality-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* Chart left, issue table right, inside one card. */
+.quality-split {
+  display: grid;
+  grid-template-columns: minmax(240px, 40%) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.quality-chart {
+  min-width: 0;
+}
+
+/* The table scrolls inside its own column rather than growing the page. */
+.quality-issues {
+  min-width: 0;
+  max-height: 320px;
+  overflow: auto;
+  border-left: 1px solid var(--border);
+  padding-left: 20px;
+}
+
+@media (max-width: 900px) {
+  .quality-split {
+    grid-template-columns: 1fr;
+  }
+  .quality-issues {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+}
+
+.metric-legend {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.metric-legend li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.swatch {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+/* Indeterminate bar while the sync is still paging. */
+.progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  overflow: hidden;
+  margin: 4px 0 8px;
+}
+
+.progress-fill {
+  width: 35%;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+  animation: slide 1.2s ease-in-out infinite;
+}
+
+@keyframes slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(320%); }
+}
+
+.issue-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.issue-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+  padding: 8px 10px;
+  background: #f0f1f3;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.issue-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.issue-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.issue-table tbody tr:hover {
+  background: #f7f8f9;
+}
+
+/* PnP ID and Area read as identifiers, so keep them monospaced and narrow. */
+.issue-table td:nth-child(1),
+.issue-table td:nth-child(2) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: nowrap;
+}
+
+.issue-table h3,
+.issue-host h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+}
+
+/* Bare status line used by the quality card while the sync runs. */
+.quality-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+/* ---------- Engineering items table ---------- */
+
+.items-split {
+  display: grid;
+  grid-template-columns: 1fr minmax(240px, 34%);
+  gap: 20px;
+  align-items: start;
+}
+
+.items-main,
+.items-pairs {
+  min-width: 0;
+}
+
+.items-pairs {
+  border-left: 1px solid var(--border);
+  padding-left: 20px;
+  max-height: 620px;
+  overflow: auto;
+}
+
+@media (max-width: 1100px) {
+  .items-split {
+    grid-template-columns: 1fr;
+  }
+  .items-pairs {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+}
+
+.items-table tbody tr.clickable {
+  cursor: pointer;
+}
+
+.items-table tbody tr.selected {
+  background: var(--accent-soft);
+}
+
+.items-table tbody tr.selected td {
+  font-weight: 600;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.pager-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Two stacked halves: table+pairs on top, schematic underneath.
+   Sized from the viewport minus the header and the panel's padding, so each
+   half is genuinely half the page rather than however tall the table grew. */
+.items-view {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  height: calc(100vh - var(--header-h) - 40px);
+  min-height: 520px;
+}
+
+.items-top {
+  min-height: 0;
+  overflow: auto;
+}
+
+/* The pair column scrolls with the top half now, so it needs no cap of its own. */
+.items-top .items-pairs {
+  max-height: none;
+}
+
+/* Schematic — its own full-width card filling the bottom half. */
+.schematic-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.schematic-section h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.schematic-section .crumb-meta {
+  margin: 0 0 8px;
+}
+
+.schematic {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 200px;
+}

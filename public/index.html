@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AEC Data Model — Plant 3D Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <!-- 1. Header: who is signed in -->
+    <header class="app-header">
+      <div class="brand">
+        <a
+          class="brand-lockup brand-aps"
+          href="https://aps.autodesk.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Autodesk Platform Services"
+        >
+          <img
+            class="brand-logo"
+            src="/images/aps-autodesk-mark.svg"
+            width="32"
+            height="32"
+            alt=""
+          />
+          <span class="brand-lockup-text">
+            <span class="brand-lockup-kicker">Autodesk</span>
+            <span class="brand-lockup-name">Platform Services</span>
+          </span>
+        </a>
+        <span class="brand-sep" aria-hidden="true"></span>
+        <a
+          class="brand-lockup brand-plant3d"
+          href="https://aps.autodesk.com/en/docs/aecdatamodel/v1"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="AEC Data Model — Plant 3D"
+        >
+          <img
+            class="brand-logo brand-logo-aec"
+            src="/images/aec-data-icon.png"
+            width="32"
+            height="38"
+            alt=""
+          />
+          <span class="brand-lockup-text">
+            <span class="brand-lockup-kicker">AEC Data Model</span>
+            <span class="brand-lockup-name">Plant 3D</span>
+          </span>
+        </a>
+        <span class="brand-sep" aria-hidden="true"></span>
+        <h1 class="brand-title">Plant 3D Sync Dashboard</h1>
+      </div>
+      <div id="user-box" class="user-box">
+        <span class="muted">Checking session…</span>
+      </div>
+    </header>
+
+    <main class="app-body">
+      <!-- 2 + 3. Left panel: hubs / projects / Plant 3D data sets -->
+      <aside class="panel-left" id="panel-left">
+        <div class="panel-header">
+          <h2>Hubs &amp; Projects</h2>
+          <button id="refresh-hubs" class="ghost-button" title="Reload hubs">Refresh</button>
+        </div>
+        <div id="tree" class="tree">
+          <p class="muted pad">Sign in to load your hubs.</p>
+        </div>
+      </aside>
+
+      <section class="panel-right">
+        <div id="details" class="details">
+          <p class="muted">Select a Plant 3D data set on the left.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ECharts UMD build. Vendor this into /public/vendor if you need to work offline. -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/tree.js"></script>
+    <script src="/js/chart.js"></script>
+    <script src="/js/items.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>

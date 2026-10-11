@@ -1,0 +1,28 @@
+{
+  "name": "aps-aecdm-plant3d-dashboard-sample",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sample dashboard: APS OAuth, AEC Data Model, and AutoCAD Plant 3D P&ID / 3D piping data sets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/autodesk-platform-services/aps-aecdm-plant3d-dashboard-sample.git"
+  },
+  "license": "MIT",
+  "main": "server/index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "debug": "node --inspect --watch server/index.js",
+    "debug:brk": "node --inspect-brk server/index.js",
+    "schema:dump": "node server/schemas/dump.js"
+  },
+  "dependencies": {
+    "@aps_sdk/authentication": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  }
+}
