@@ -1,5 +1,12 @@
 node_modules/
 .env
+.env.local
+.env.*.local
+!.env.example
 *.log
 .DS_Store
 .cursor/
+
+# Keep shared VS Code launch config; ignore other local editor settings
+.vscode/
+!.vscode/launch.json
