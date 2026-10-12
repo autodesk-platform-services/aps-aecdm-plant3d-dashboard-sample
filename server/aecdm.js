@@ -55,9 +55,19 @@ const GET_HUBS = `
 query GetHubs($pagination: PaginationInput) {
   hubs(pagination: $pagination) {
     pagination { cursor }
-    results { id name }
+    results {
+      id
+      name
+      alternativeIdentifiers { dataManagementAPIHubId }
+    }
   }
 }`;
+
+/** ACC / Forma / BIM 360 hubs use Data Management hub ids in the form `b.<uuid>`. */
+function isDataManagementHub(hub) {
+  const dmHubId = hub.alternativeIdentifiers && hub.alternativeIdentifiers.dataManagementAPIHubId;
+  return typeof dmHubId === 'string' && dmHubId.startsWith('b.');
+}
 
 const GET_PROJECTS = `
 query GetProjects($hubId: ID!, $pagination: PaginationInput) {
@@ -139,7 +149,14 @@ async function fetchAllPages(accessToken, query, field, variables = {}, limit = 
   return all;
 }
 
-const getHubs = (accessToken) => fetchAllPages(accessToken, GET_HUBS, 'hubs');
+const getHubs = async (accessToken) => {
+  const all = await fetchAllPages(accessToken, GET_HUBS, 'hubs');
+  const hubs = all.filter(isDataManagementHub);
+  if (hubs.length !== all.length) {
+    log(`hubs: ${hubs.length} ACC/BIM360 (b.*) of ${all.length} total`);
+  }
+  return hubs;
+};
 
 const getProjects = (accessToken, hubId) =>
   fetchAllPages(accessToken, GET_PROJECTS, 'projects', { hubId });

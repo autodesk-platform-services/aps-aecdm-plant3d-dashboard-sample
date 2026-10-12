@@ -15,13 +15,11 @@ A Node.js web application builds statistic of engineering items and breakdown vi
 
 ## Thumbnail
 
-
-
+![thumbnail](thumbnail.png)
 
 ## Demo
 
-
-
+Walkthrough video: [YouTube — APS AEC Data Model Plant 3D Dashboard sample](https://youtu.be/hBeut19Qy0s)
 
 ### Project layout
 
